@@ -3,6 +3,5 @@
 /android/
 
 # Krita files
-.kra
-.kra~
-.png
+*.kra
+*.kra~
