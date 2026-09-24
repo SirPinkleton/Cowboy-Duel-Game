@@ -1,7 +1,44 @@
-[gd_scene format=3 uid="uid://cqu4juwwwfl6m"]
+[gd_scene load_steps=7 format=3 uid="uid://cqu4juwwwfl6m"]
+
+[ext_resource type="Texture2D" uid="uid://vq1dnykixu55" path="res://art/player_stuff/MC1-JECKET.png" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cnlkt7wkeh5at" path="res://scenes/scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cblh7lchc7rwo" path="res://art/player_stuff/MC1-NOJECKET.png" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://de6g55v0blb8a" path="res://scenes/player_projectile.tscn" id="4_dqkch"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dqkch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g2els")
+}],
+"loop": true,
+"name": &"stand-jecket",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qhqgy")
+}],
+"loop": true,
+"name": &"stand-no-jecket",
+"speed": 5.0
+}]
 
 [node name="player" type="CharacterBody2D"]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+script = ExtResource("1_qhqgy")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_qlg0r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+scale = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_dqkch")
+animation = &"stand-no-jecket"
+
+[node name="player_projectile" parent="." instance=ExtResource("4_dqkch")]
+
+[node name="AimingTimer" type="Timer" parent="."]

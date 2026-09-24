@@ -12,16 +12,29 @@ config_version=5
 
 config/name="cowboy-godot-project"
 config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=240
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="cowboy-godot-project"
+
+[file_customization]
+
+folder_colors={
+"res://art/": "green",
+"res://scenes/": "orange",
+"res://sounds/": "blue"
+}
 
 [physics]
 
