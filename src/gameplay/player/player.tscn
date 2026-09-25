@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cqu4juwwwfl6m"]
 
-[ext_resource type="Texture2D" uid="uid://vq1dnykixu55" path="res://art/player_stuff/MC1-JECKET.png" id="1_g2els"]
-[ext_resource type="Script" uid="uid://cnlkt7wkeh5at" path="res://scenes/scripts/player.gd" id="1_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://cblh7lchc7rwo" path="res://art/player_stuff/MC1-NOJECKET.png" id="2_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://de6g55v0blb8a" path="res://scenes/player_projectile.tscn" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://vq1dnykixu55" path="res://assets/art/characters/player_stuff/MC1-JECKET.png" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cnlkt7wkeh5at" path="res://src/gameplay/player/scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cblh7lchc7rwo" path="res://assets/art/characters/player_stuff/MC1-NOJECKET.png" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://d001nesw4hj8s" path="res://src/gameplay/shared/pistol_projectile.tscn" id="4_dqkch"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
 
@@ -35,10 +35,9 @@ scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_qlg0r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_dqkch")
 animation = &"stand-no-jecket"
 
-[node name="player_projectile" parent="." instance=ExtResource("4_dqkch")]
-
 [node name="AimingTimer" type="Timer" parent="."]
+
+[node name="pistol_projectile" parent="." instance=ExtResource("4_dqkch")]

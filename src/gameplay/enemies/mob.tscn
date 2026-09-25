@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnxdwajb1yt7x"]
+
+[ext_resource type="Script" uid="uid://dxpoerptf0tef" path="res://src/gameplay/enemies/scripts/mob.gd" id="1_e4bo4"]
+[ext_resource type="PackedScene" uid="uid://d001nesw4hj8s" path="res://src/gameplay/shared/pistol_projectile.tscn" id="2_mkq2q"]
+
+[node name="Mob" type="Node"]
+script = ExtResource("1_e4bo4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[node name="pistol_projectile" parent="." instance=ExtResource("2_mkq2q")]

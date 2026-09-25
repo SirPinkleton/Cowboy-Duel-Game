@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="cowboy-godot-project"
+run/main_scene="uid://ctk4q7q61sfy1"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=240
 config/icon="res://icon.svg"
@@ -31,9 +32,10 @@ project/assembly_name="cowboy-godot-project"
 [file_customization]
 
 folder_colors={
-"res://art/": "green",
-"res://scenes/": "orange",
-"res://sounds/": "blue"
+"res://assets/art/": "green",
+"res://assets/sounds/": "blue",
+"res://src/": "red",
+"res://src/debug/": "yellow"
 }
 
 [physics]

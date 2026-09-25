@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq8fbdw3jyhvf"]
+
+[ext_resource type="Script" uid="uid://bnykigp3f5qwh" path="res://src/levels/scripts/level_1.gd" id="1_kg615"]
+[ext_resource type="PackedScene" uid="uid://dtfi002qdlaxr" path="res://src/interactables/floor.tscn" id="2_u5ev4"]
+
+[node name="Level1" type="Node"]
+script = ExtResource("1_kg615")
+
+[node name="floor" parent="." instance=ExtResource("2_u5ev4")]
+position = Vector2(-1, 347)
