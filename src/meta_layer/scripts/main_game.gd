@@ -5,17 +5,16 @@ const PLAYER : String	= "res://src/gameplay/player/player.tscn"
 const LEVEL_1 : String	= "res://src/levels/level_1.tscn"
 #uid:// versus res:// ???
 
-#figure out what these are suppose to represent, these Types don't actually exist...
-var _player 			: Player = null
+#rnelson 9-24-2026 todo: remove for actual game
+var _player 		: Player = null
 var _current_level 	: LEVEL1 = null
 
-#references to root nodes as on-ready variables
-#World
+# references to scene nodes, onready to ensure they exist when used
+# World
 @onready var level_root		: Node2D = $World/LevelRoot
 @onready var entity_root	: Node2D = $World/EntityRoot
 @onready var effect_root	: Node2D = $World/EffectRoot
-
-#UI
+# UI
 @onready var hud_root			: Control = $HudLayer/HudRoot
 @onready var pause_root			: Control = $PauseLayer/PauseRoot
 @onready var transition_root	: Control = $TransitionLayer/TransitionRoot
@@ -30,12 +29,12 @@ func _ready() -> void:
 func _init_player() -> void:
 	#get reference to player scene
 	var player_scene : PackedScene = ResourceLoader.load(PLAYER) as PackedScene
-	if player_scene == null:
+	if !is_instance_valid(player_scene):
 		push_error("Could not load player scene: {player_name}".format(PLAYER))
 		return
 	
 	_player = player_scene.instantiate() as Player
-	if _player == null:
+	if !is_instance_valid(_player):
 		push_error("Loaded player failed to instantiate (does it exist?): {player_name}".format(PLAYER))
 		return
 	
@@ -49,7 +48,7 @@ func _deferred_load_level(level_ID : String) -> void:
 	# already loaded level needs to be unloaded
 	# consider: phase out old level with a screenwipe? maybe both scenes exist at the same time
 	# temporarily? etc.
-	if _current_level != null:
+	if is_instance_valid(_current_level):
 		_current_level.queue_free()
 		# finish freeing old level before continuing
 		await get_tree().process_frame
@@ -61,12 +60,12 @@ func _deferred_load_level(level_ID : String) -> void:
 	
 	var level_scene : PackedScene =\
 	 ResourceLoader.load(level_ID) as PackedScene
-	if level_scene == null:
+	if !is_instance_valid(level_scene):
 		push_error("Could not load level scene: {level_name}".format(level_ID))
 		return
 
 	_current_level = level_scene.instantiate() as LEVEL1
-	if _current_level == null:
+	if is_instance_valid(_current_level):
 		push_error("Loaded level failed to instantiate (does it exist?): {level_name}".format(level_ID))
 		return
 	
@@ -80,6 +79,27 @@ func _deferred_load_level(level_ID : String) -> void:
 	# adjust the camera to show player in the latest position
 	_setup_level_camera()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+
+func _place_player_at_level_spawn() -> void:
+	if !is_instance_valid(_player):
+		push_error("player is null and cannot be placed")
+		return
+	if !is_instance_valid(_current_level):
+		push_error("current level is null and cannot have the player be placed within it")
+		return
+	
+	_player.global_position = _current_level.get_default_player_spawn()
+
+
+func _setup_level_camera() -> void:
+	if !is_instance_valid(_player) || !is_instance_valid(_current_level):
+		push_warning("either player or level is null, cannot setup camera")
+		return
+	
+	var level_camera : Camera2D = _current_level.get_player_camera()
+	if !is_instance_valid(level_camera):
+		push_warning("could not get camera from current level")
+		return
+	
+	#rnelson 9-24-2026 tbd: implement camera_system.set_target(_player)
+	level_camera.target = _player
