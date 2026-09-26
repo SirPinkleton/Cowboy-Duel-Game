@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyl83ngi2rrmy"]
+
+[ext_resource type="Script" uid="uid://cs7u2g5w7i423" path="res://src/meta_layer/scripts/game_manager.gd" id="1_p578r"]
+[ext_resource type="PackedScene" uid="uid://c3c7l2tryoogf" path="res://src/meta_layer/AmmoManager.tscn" id="2_8h2hi"]
+[ext_resource type="PackedScene" uid="uid://c17d756o7ob5q" path="res://src/meta_layer/HealthManager.tscn" id="3_xu8s1"]
+[ext_resource type="PackedScene" uid="uid://bwlsj4mcoflfc" path="res://src/meta_layer/SpawnManager.tscn" id="4_21lhc"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_p578r")
+
+[node name="AmmoManager" parent="." instance=ExtResource("2_8h2hi")]
+
+[node name="HealthManager" parent="." instance=ExtResource("3_xu8s1")]
+
+[node name="SpawnManager" parent="." instance=ExtResource("4_21lhc")]

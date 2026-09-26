@@ -47,15 +47,16 @@ func _ready():
 	
 func _process(delta: float):
 	# --- movement ---
-	# check for user input control
-	var velocity = Vector2.ZERO
+	#rnelson 9-25-2026 todo: check for user input control (handle momentum, pairing this with movement_status)
+	# also: research how people handle momentum movement
+	velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= 1
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("crouch"):
 		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
+	if Input.is_action_pressed("jump"):
 		velocity.y -= 1
 	#etc. movement logic
 	

@@ -1,10 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq8fbdw3jyhvf"]
+[gd_scene load_steps=6 format=3 uid="uid://cq8fbdw3jyhvf"]
 
 [ext_resource type="Script" uid="uid://bnykigp3f5qwh" path="res://src/levels/scripts/level_1.gd" id="1_kg615"]
 [ext_resource type="PackedScene" uid="uid://dtfi002qdlaxr" path="res://src/interactables/floor.tscn" id="2_u5ev4"]
+[ext_resource type="PackedScene" uid="uid://ddvy7uditflwq" path="res://src/gameplay/shared/spawner.tscn" id="3_xk4xt"]
+[ext_resource type="Resource" uid="uid://cc0nk2jaex11n" path="res://src/resources/blue_mook.tres" id="4_iygna"]
+[ext_resource type="Resource" uid="uid://d4jb7wetpfp6l" path="res://src/resources/red_mook.tres" id="5_l80tk"]
 
 [node name="Level1" type="Node"]
 script = ExtResource("1_kg615")
 
 [node name="floor" parent="." instance=ExtResource("2_u5ev4")]
 position = Vector2(-1, 347)
+
+[node name="BlueImmediateSpawner" parent="." instance=ExtResource("3_xk4xt")]
+position = Vector2(593, 200)
+enemy_definition = ExtResource("4_iygna")
+spawn_modes = Array[int]([0])
+
+[node name="RedDelayedSpawner" parent="." instance=ExtResource("3_xk4xt")]
+position = Vector2(76, 196)
+enemy_definition = ExtResource("5_l80tk")
+spawn_modes = Array[int]([1])
+
+[node name="BlueDelayedSpawner" parent="." instance=ExtResource("3_xk4xt")]
+position = Vector2(470, 204)
+enemy_definition = ExtResource("4_iygna")
+spawn_modes = Array[int]([1])
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(296, 259)
+
+[node name="RedAlertSpawner" parent="." instance=ExtResource("3_xk4xt")]
+position = Vector2(195, 140)
+enemy_definition = ExtResource("5_l80tk")
+spawn_modes = Array[int]([0, 2])

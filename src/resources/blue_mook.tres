@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3 uid="uid://cc0nk2jaex11n"]
+
+[ext_resource type="Script" uid="uid://bg2o316gk8pyh" path="res://src/resources/EnemyDefinition.gd" id="1_cmngo"]
+[ext_resource type="Texture2D" uid="uid://wfwhr46fjecg" path="res://assets/art/characters/enemies/blue_mook.png" id="1_lf83l"]
+[ext_resource type="PackedScene" uid="uid://biohwwgo00vbc" path="res://src/gameplay/enemies/blue_mook.tscn" id="2_8418u"]
+
+[resource]
+script = ExtResource("1_cmngo")
+scene = ExtResource("2_8418u")
+preview_texture = ExtResource("1_lf83l")
+cooldown_time = 2.8
+randomize_cooldown_time = 0.0

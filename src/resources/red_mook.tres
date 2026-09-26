@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3 uid="uid://d4jb7wetpfp6l"]
+
+[ext_resource type="Script" uid="uid://bg2o316gk8pyh" path="res://src/resources/EnemyDefinition.gd" id="1_8lj1m"]
+[ext_resource type="Texture2D" uid="uid://clx124fn5nm7l" path="res://assets/art/characters/enemies/red_mook.png" id="1_vimts"]
+[ext_resource type="PackedScene" uid="uid://bnxdwajb1yt7x" path="res://src/gameplay/enemies/red_mook.tscn" id="2_s83c6"]
+
+[resource]
+script = ExtResource("1_8lj1m")
+scene = ExtResource("2_s83c6")
+preview_texture = ExtResource("1_vimts")
+cooldown_time = 0.0
+randomize_cooldown_time = 4.7
+spawnOnlyOnAlert = true

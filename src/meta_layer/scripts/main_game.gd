@@ -1,9 +1,10 @@
 extends Node
 
 #rnelson 9-24-2026 todo: move this stuff out of main and into World
+#const PLAYER : String	= "uid://cqu4juwwwfl6m"
+#const LEVEL_1 : String	= "uid://cq8fbdw3jyhvf"
 const PLAYER : String	= "res://src/gameplay/player/player.tscn"
 const LEVEL_1 : String	= "res://src/levels/level_1.tscn"
-#uid:// versus res:// ???
 
 #rnelson 9-24-2026 todo: remove for actual game
 var _player 		: Player = null
@@ -65,8 +66,10 @@ func _deferred_load_level(level_ID : String) -> void:
 		return
 
 	_current_level = level_scene.instantiate() as LEVEL1
-	if is_instance_valid(_current_level):
-		push_error("Loaded level failed to instantiate (does it exist?): {level_name}".format(level_ID))
+	if !is_instance_valid(_current_level):
+		#var error_string = "Loaded level failed to instantiate (does it exist?): {level_name}".format(level_ID)
+		var error_string_custom = "Loaded level failed to instantiate (does it exist?): " + level_ID
+		push_error(error_string_custom)
 		return
 	
 	level_root.add_child(_current_level)
@@ -88,6 +91,7 @@ func _place_player_at_level_spawn() -> void:
 		push_error("current level is null and cannot have the player be placed within it")
 		return
 	
+	#rnelson 9-25-2026 todo: define get_default_player_spawwn()
 	_player.global_position = _current_level.get_default_player_spawn()
 
 
@@ -96,10 +100,11 @@ func _setup_level_camera() -> void:
 		push_warning("either player or level is null, cannot setup camera")
 		return
 	
-	var level_camera : Camera2D = _current_level.get_player_camera()
-	if !is_instance_valid(level_camera):
-		push_warning("could not get camera from current level")
-		return
+	#rnelson 9-25-2026 todo: define get_player_camera()
+	#var level_camera : Camera2D = _current_level.get_player_camera()
+	#if !is_instance_valid(level_camera):
+	#	push_warning("could not get camera from current level")
+	#	return
 	
 	#rnelson 9-24-2026 tbd: implement camera_system.set_target(_player)
-	level_camera.target = _player
+	#level_camera.target = _player

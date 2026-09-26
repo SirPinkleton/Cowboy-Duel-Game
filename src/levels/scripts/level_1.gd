@@ -1,12 +1,13 @@
 class_name LEVEL1
 extends Node
 
+var player_spawn_location : Vector2
+
+@onready var player_spawn_marker : Marker2D = $PlayerSpawn
+
+func get_default_player_spawn() -> Vector2:
+	return player_spawn_location
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	player_spawn_location = player_spawn_marker.position
