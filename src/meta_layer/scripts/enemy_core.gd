@@ -1,6 +1,7 @@
 class_name EnemyCore
 extends CharacterBody2D
 
+#enemies emit when they are freed
 signal enemy_queued_free()
 
 #rnelson 9-25-2026: figure out when this is relevant (ending a level?)

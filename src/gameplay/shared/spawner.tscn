@@ -1,19 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddvy7uditflwq"]
+[gd_scene format=3 uid="uid://ddvy7uditflwq"]
 
 [ext_resource type="Script" uid="uid://sat3ycjim4c" path="res://src/gameplay/shared/scripts/spawner.gd" id="1_ptx3g"]
 [ext_resource type="Script" uid="uid://m1gphv6whioo" path="res://src/gameplay/shared/scripts/preview_sprite.gd" id="2_bgwl0"]
 [ext_resource type="Texture2D" uid="uid://d04w50cl7sr3l" path="res://assets/art/characters/enemies/null.png" id="2_vsmp4"]
 
-[node name="Spawner" type="Marker2D"]
+[node name="Spawner" type="Marker2D" unique_id=653948937]
 script = ExtResource("1_ptx3g")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=793424001]
 
-[node name="SpawnDelayTimer" type="Timer" parent="."]
+[node name="SpawnDelayTimer" type="Timer" parent="." unique_id=871315728]
 
-[node name="PreviewSprite" type="Sprite2D" parent="."]
+[node name="PreviewSprite" type="Sprite2D" parent="." unique_id=384872700]
 texture = ExtResource("2_vsmp4")
 script = ExtResource("2_bgwl0")
 
-[node name="PreviewRefreshTimer" type="Timer" parent="PreviewSprite"]
+[node name="PreviewRefreshTimer" type="Timer" parent="PreviewSprite" unique_id=61876033]
 wait_time = 0.25

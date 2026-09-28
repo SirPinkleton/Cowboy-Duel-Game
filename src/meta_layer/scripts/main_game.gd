@@ -1,8 +1,9 @@
 extends Node
 
+#rnelson 9-27-2026 todo: map a button to jump from the current game to the main menu
+#to track that unloading a level unloads EVERYTHING
+
 #rnelson 9-24-2026 todo: move this stuff out of main and into World
-#const PLAYER : String	= "uid://cqu4juwwwfl6m"
-#const LEVEL_1 : String	= "uid://cq8fbdw3jyhvf"
 const PLAYER : String	= "res://src/gameplay/player/player.tscn"
 const LEVEL_1 : String	= "res://src/levels/level_1.tscn"
 
@@ -11,6 +12,8 @@ var _player 		: Player = null
 var _current_level 	: LEVEL1 = null
 
 # references to scene nodes, onready to ensure they exist when used
+# Systems
+@onready var game_manager 	: Node = $Systems/GameManager
 # World
 @onready var level_root		: Node2D = $World/LevelRoot
 @onready var entity_root	: Node2D = $World/EntityRoot
@@ -24,9 +27,13 @@ var _current_level 	: LEVEL1 = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_init_systems()
 	_init_player()
 	load_level(LEVEL_1)
-	
+
+func _init_systems() -> void:
+	game_manager.spawn_manager.set_entity_layer(entity_root)
+
 func _init_player() -> void:
 	#get reference to player scene
 	var player_scene : PackedScene = ResourceLoader.load(PLAYER) as PackedScene
@@ -82,7 +89,6 @@ func _deferred_load_level(level_ID : String) -> void:
 	# adjust the camera to show player in the latest position
 	_setup_level_camera()
 
-
 func _place_player_at_level_spawn() -> void:
 	if !is_instance_valid(_player):
 		push_error("player is null and cannot be placed")
@@ -93,7 +99,6 @@ func _place_player_at_level_spawn() -> void:
 	
 	#rnelson 9-25-2026 todo: define get_default_player_spawwn()
 	_player.global_position = _current_level.get_default_player_spawn()
-
 
 func _setup_level_camera() -> void:
 	if !is_instance_valid(_player) || !is_instance_valid(_current_level):
@@ -108,3 +113,11 @@ func _setup_level_camera() -> void:
 	
 	#rnelson 9-24-2026 tbd: implement camera_system.set_target(_player)
 	#level_camera.target = _player
+	
+func quit_game() -> void:
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
+
+func _process(_delta: float) -> void:
+	if Input.is_action_pressed("debug_quit"):
+		quit_game()

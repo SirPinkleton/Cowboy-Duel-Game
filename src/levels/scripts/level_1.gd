@@ -1,5 +1,5 @@
 class_name LEVEL1
-extends Node
+extends BaseLevel
 
 var player_spawn_location : Vector2
 
@@ -7,6 +7,10 @@ var player_spawn_location : Vector2
 
 func get_default_player_spawn() -> Vector2:
 	return player_spawn_location
+
+func get_player_camera() -> Camera2D:
+#rnelson 9-25-2026 todo: define
+	return null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,15 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnxdwajb1yt7x"]
+[gd_scene format=3 uid="uid://bnxdwajb1yt7x"]
 
 [ext_resource type="Script" uid="uid://dxpoerptf0tef" path="res://src/gameplay/enemies/scripts/mob.gd" id="1_e4bo4"]
+[ext_resource type="Texture2D" uid="uid://clx124fn5nm7l" path="res://assets/art/characters/enemies/red_mook.png" id="2_lgyll"]
 [ext_resource type="PackedScene" uid="uid://d001nesw4hj8s" path="res://src/gameplay/shared/pistol_projectile.tscn" id="2_mkq2q"]
 
-[node name="Mob" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fi6fn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fi6fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lgyll")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Mob" type="CharacterBody2D" unique_id=1004870704]
 script = ExtResource("1_e4bo4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=288841706]
+shape = SubResource("RectangleShape2D_fi6fn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D" unique_id=593416174]
+sprite_frames = SubResource("SpriteFrames_fi6fn")
+animation = &"idle"
 
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=1348991584]
 
-[node name="pistol_projectile" parent="." instance=ExtResource("2_mkq2q")]
+[node name="pistol_projectile" parent="." unique_id=484646196 instance=ExtResource("2_mkq2q")]

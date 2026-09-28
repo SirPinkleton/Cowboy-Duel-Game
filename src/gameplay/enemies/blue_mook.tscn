@@ -1,15 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://biohwwgo00vbc"]
+[gd_scene format=3 uid="uid://biohwwgo00vbc"]
 
 [ext_resource type="Script" uid="uid://dxpoerptf0tef" path="res://src/gameplay/enemies/scripts/mob.gd" id="1_4pwwq"]
 [ext_resource type="PackedScene" uid="uid://d001nesw4hj8s" path="res://src/gameplay/shared/pistol_projectile.tscn" id="2_0kwsx"]
+[ext_resource type="Texture2D" uid="uid://wfwhr46fjecg" path="res://assets/art/characters/enemies/blue_mook.png" id="2_xr8th"]
 
-[node name="Mob" type="Node"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_xk4xt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xr8th")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Mob" type="CharacterBody2D" unique_id=1441949349]
 script = ExtResource("1_4pwwq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1521166230]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D" unique_id=1487423084]
+sprite_frames = SubResource("SpriteFrames_xk4xt")
+animation = &"idle"
 
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=331746582]
 
-[node name="pistol_projectile" parent="." instance=ExtResource("2_0kwsx")]
+[node name="pistol_projectile" parent="." unique_id=2117793149 instance=ExtResource("2_0kwsx")]
