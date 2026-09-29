@@ -37,12 +37,12 @@ func _init_systems() -> void:
 func _init_player() -> void:
 	#get reference to player scene
 	var player_scene : PackedScene = ResourceLoader.load(PLAYER) as PackedScene
-	if !is_instance_valid(player_scene):
+	if true != is_instance_valid(player_scene):
 		push_error("Could not load player scene: {player_name}".format(PLAYER))
 		return
 	
 	_player = player_scene.instantiate() as Player
-	if !is_instance_valid(_player):
+	if true != is_instance_valid(_player):
 		push_error("Loaded player failed to instantiate (does it exist?): {player_name}".format(PLAYER))
 		return
 	
@@ -68,15 +68,13 @@ func _deferred_load_level(level_ID : String) -> void:
 	
 	var level_scene : PackedScene =\
 	 ResourceLoader.load(level_ID) as PackedScene
-	if !is_instance_valid(level_scene):
-		push_error("Could not load level scene: {level_name}".format(level_ID))
+	if true != is_instance_valid(level_scene):
+		push_error("Could not load level scene: " + level_ID)
 		return
 
 	_current_level = level_scene.instantiate() as LEVEL1
-	if !is_instance_valid(_current_level):
-		#var error_string = "Loaded level failed to instantiate (does it exist?): {level_name}".format(level_ID)
-		var error_string_custom = "Loaded level failed to instantiate (does it exist?): " + level_ID
-		push_error(error_string_custom)
+	if true != is_instance_valid(_current_level):
+		push_error("Loaded level failed to instantiate (does it exist?): " + level_ID)
 		return
 	
 	level_root.add_child(_current_level)
@@ -90,10 +88,10 @@ func _deferred_load_level(level_ID : String) -> void:
 	_setup_level_camera()
 
 func _place_player_at_level_spawn() -> void:
-	if !is_instance_valid(_player):
+	if true != is_instance_valid(_player):
 		push_error("player is null and cannot be placed")
 		return
-	if !is_instance_valid(_current_level):
+	if true != is_instance_valid(_current_level):
 		push_error("current level is null and cannot have the player be placed within it")
 		return
 	
@@ -101,13 +99,13 @@ func _place_player_at_level_spawn() -> void:
 	_player.global_position = _current_level.get_default_player_spawn()
 
 func _setup_level_camera() -> void:
-	if !is_instance_valid(_player) || !is_instance_valid(_current_level):
+	if true != is_instance_valid(_player) || true != is_instance_valid(_current_level):
 		push_warning("either player or level is null, cannot setup camera")
 		return
 	
 	#rnelson 9-25-2026 todo: define get_player_camera()
 	#var level_camera : Camera2D = _current_level.get_player_camera()
-	#if !is_instance_valid(level_camera):
+	#if true != is_instance_valid(level_camera):
 	#	push_warning("could not get camera from current level")
 	#	return
 	

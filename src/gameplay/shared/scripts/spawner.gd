@@ -39,7 +39,7 @@ var _has_spawned 			: bool = false # true when spawn happens
 func _ready() -> void:
 	_spawn_manager = Global.game_manager.spawn_manager
 	
-	if !is_instance_valid(enemy_definition):
+	if true != is_instance_valid(enemy_definition):
 		push_error("spawner has no definition to use: " + name)
 		return
 	
@@ -94,7 +94,7 @@ func _handle_spawn_event(spawn_event : SpawnEvent) -> void:
 func _instantiate_and_add_to_level() -> bool:
 	var enemy_instance : EnemyCore = _spawn_manager.spawn_enemy(_enemy_scene, global_transform)
 	
-	if !is_instance_valid(enemy_instance):
+	if true != is_instance_valid(enemy_instance):
 		push_error("Spawner cannot instantiate enemy instance: " + name)
 		return false
 	

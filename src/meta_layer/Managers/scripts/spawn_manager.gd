@@ -11,7 +11,7 @@ func spawn_enemy(enemy_scene : PackedScene, global_transform : Transform2D) -> E
 		return null
 	
 	var enemy : EnemyCore = enemy_scene.instantiate() as EnemyCore
-	if !is_instance_valid(enemy):
+	if true != is_instance_valid(enemy):
 		push_warning("enemy failed to instantiate, cannot spawn")
 		return null
 	
