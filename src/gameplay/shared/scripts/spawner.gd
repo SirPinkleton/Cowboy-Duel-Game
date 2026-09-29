@@ -62,7 +62,7 @@ func _ready() -> void:
 	# ex: enemies are alerted, but spawner isn't on screen
 	# ex: spawner has entered screen, but has already spawned enemy
 	# ex: spawner has entered screen, but this spawner is set to spawn after a delay
-	# this method works through these considerations and either passes, or spawns the enemy
+# this method works through these considerations and either passes, or spawns the enemy
 func _handle_spawn_event(spawn_event : SpawnEvent) -> void:
 	if spawn_event == SpawnEvent.CAMERA_EXITED:
 		breakpoint
