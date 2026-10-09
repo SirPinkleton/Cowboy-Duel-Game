@@ -54,6 +54,7 @@ func _ready() -> void:
 	visibility_notifier.screen_entered.connect(self._on_camera_entered)
 	visibility_notifier.screen_exited.connect(self._on_camera_exited)
 	spawn_delay_timer.timeout.connect(self._on_respawn_timer_timeout)
+	spawn_delay_timer.one_shot = true
 	#rnelson 9-25-2026 todo: figure this out
 	#Global.Game_Manager.alert_manager.alert_raised.connect(self._on_enemy_alerted)
 
@@ -64,8 +65,9 @@ func _ready() -> void:
 	# ex: spawner has entered screen, but this spawner is set to spawn after a delay
 # this method works through these considerations and either passes, or spawns the enemy
 func _handle_spawn_event(spawn_event : SpawnEvent) -> void:
-	if spawn_event == SpawnEvent.CAMERA_EXITED:
-		breakpoint
+	#push_warning("Received event " + SpawnEvent.keys()[spawn_event] +" of: " + name)
+	#if spawn_event == SpawnEvent.CAMERA_EXITED:
+	#	breakpoint
 	
 	# This spawner has already done it's duty, ignore the event
 	if (_has_spawned):
@@ -76,8 +78,6 @@ func _handle_spawn_event(spawn_event : SpawnEvent) -> void:
 	if (!spawn_modes.has(spawn_event)):
 		#push_warning("of the spawn events (" + SpawnEvent.keys()[spawn_modes[0]] +") the current event (" + SpawnEvent.keys()[spawn_event] +") for spawner " + name + " isn't valid")
 		return
-	elif spawn_event == SpawnEvent.COOLDOWN_FINISHED:
-		spawn_delay_timer.stop()
 	
 	if (spawn_event == SpawnEvent.ENEMY_ALERTED && !_spawner_is_visible):
 		#either enemy only spawns on alert, so only for the current screen
@@ -89,6 +89,7 @@ func _handle_spawn_event(spawn_event : SpawnEvent) -> void:
 	#	return
 	
 	# if we've reached this point, we haven't been filtered. We're good to spawn.
+	_has_spawned = true
 	_instantiate_and_add_to_level()
 
 func _instantiate_and_add_to_level() -> bool:
@@ -98,21 +99,23 @@ func _instantiate_and_add_to_level() -> bool:
 		push_error("Spawner cannot instantiate enemy instance: " + name)
 		return false
 	
-	_has_spawned = true
 	return true
 
 
 #region Signal Handlers
 
 func _on_camera_entered() -> void:
-	_spawner_is_visible = true
-	if spawn_modes.has(SpawnEvent.COOLDOWN_FINISHED):
-		spawn_delay_timer.start(_cooldown_to_use)
-	_handle_spawn_event(SpawnEvent.CAMERA_ENTERED)
+	# try to prevent duplicates with the boolean
+	if not _spawner_is_visible:
+		_spawner_is_visible = true
+		if spawn_modes.has(SpawnEvent.COOLDOWN_FINISHED):
+			spawn_delay_timer.start(_cooldown_to_use)
+		_handle_spawn_event(SpawnEvent.CAMERA_ENTERED)
 	
 func _on_camera_exited() -> void:
-	_spawner_is_visible = false
-	_handle_spawn_event(SpawnEvent.CAMERA_EXITED)
+	if _spawner_is_visible:
+		_spawner_is_visible = false
+		_handle_spawn_event(SpawnEvent.CAMERA_EXITED)
 
 func _on_respawn_timer_timeout() -> void:
 	_handle_spawn_event(SpawnEvent.COOLDOWN_FINISHED)

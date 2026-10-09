@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqu4juwwwfl6m"]
+[gd_scene format=3 uid="uid://cqu4juwwwfl6m"]
 
 [ext_resource type="Texture2D" uid="uid://vq1dnykixu55" path="res://assets/art/characters/player_stuff/MC1-JECKET.png" id="1_g2els"]
 [ext_resource type="Script" uid="uid://cnlkt7wkeh5at" path="res://src/gameplay/player/scripts/player.gd" id="1_qhqgy"]
@@ -13,7 +13,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("1_g2els")
 }],
-"loop": true,
+"loop": 1,
 "name": &"stand-jecket",
 "speed": 5.0
 }, {
@@ -21,23 +21,26 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_qhqgy")
 }],
-"loop": true,
+"loop": 1,
 "name": &"stand-no-jecket",
 "speed": 5.0
 }]
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=468507398]
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_qhqgy")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(2, 2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1894316531]
 shape = SubResource("CapsuleShape2D_qlg0r")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D" unique_id=924254748]
 sprite_frames = SubResource("SpriteFrames_dqkch")
 animation = &"stand-no-jecket"
 
-[node name="AimingTimer" type="Timer" parent="."]
+[node name="AimingTimer" type="Timer" parent="." unique_id=806678864]
 
-[node name="pistol_projectile" parent="." instance=ExtResource("4_dqkch")]
+[node name="pistol_projectile" parent="." unique_id=1649368199 instance=ExtResource("4_dqkch")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1940675603]

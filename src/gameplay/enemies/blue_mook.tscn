@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://d001nesw4hj8s" path="res://src/gameplay/shared/pistol_projectile.tscn" id="2_0kwsx"]
 [ext_resource type="Texture2D" uid="uid://wfwhr46fjecg" path="res://assets/art/characters/enemies/blue_mook.png" id="2_xr8th"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kwsx"]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xk4xt"]
 animations = [{
 "frames": [{
@@ -15,10 +17,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Mob" type="CharacterBody2D" unique_id=1441949349]
+[node name="Mob" type="CharacterBody2D" unique_id=1400204091]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_4pwwq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1521166230]
+shape = SubResource("RectangleShape2D_0kwsx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D" unique_id=1487423084]
 sprite_frames = SubResource("SpriteFrames_xk4xt")

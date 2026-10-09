@@ -9,28 +9,42 @@
 [node name="Level1" type="Node2D" unique_id=586020078]
 script = ExtResource("1_kg615")
 
-[node name="floor" parent="." unique_id=1857634718 instance=ExtResource("2_u5ev4")]
-position = Vector2(-1, 347)
+[node name="BackBackground" type="CanvasLayer" parent="." unique_id=155032030]
 
-[node name="BlueImmediateSpawner" parent="." unique_id=616741386 instance=ExtResource("3_xk4xt")]
-position = Vector2(593, 200)
-enemy_definition = ExtResource("4_iygna")
-spawn_modes = Array[int]([0])
+[node name="ColorRect" type="ColorRect" parent="BackBackground" unique_id=1680249435]
+visible = false
+offset_right = 639.0
+offset_bottom = 338.0
+color = Color(0.26293245, 0.26293245, 0.26293245, 1)
 
-[node name="RedDelayedSpawner" parent="." unique_id=716625871 instance=ExtResource("3_xk4xt")]
-position = Vector2(76, 196)
+[node name="Background" type="Node2D" parent="." unique_id=1351927949]
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=426300305]
+
+[node name="Clouds" type="Sprite2D" parent="Background" unique_id=1478071567]
+
+[node name="Sun" type="Sprite2D" parent="Background" unique_id=1909913902]
+
+[node name="Tilemaps" type="Node2D" parent="." unique_id=1464319652]
+
+[node name="Ground" type="TileMapLayer" parent="Tilemaps" unique_id=1557743988]
+
+[node name="Mountains" type="TileMapLayer" parent="Tilemaps" unique_id=69352954]
+
+[node name="Entities" type="Node2D" parent="." unique_id=1576743229]
+
+[node name="PlayerSpawn" type="Marker2D" parent="Entities" unique_id=301264785]
+position = Vector2(214, 229)
+
+[node name="RedDelayedSpawner" parent="Entities" unique_id=716625871 instance=ExtResource("3_xk4xt")]
+position = Vector2(87, 184)
 enemy_definition = ExtResource("5_l80tk")
 spawn_modes = Array[int]([2])
 
-[node name="BlueDelayedSpawner" parent="." unique_id=2124906640 instance=ExtResource("3_xk4xt")]
+[node name="BlueDelayedSpawner" parent="Entities" unique_id=2124906640 instance=ExtResource("3_xk4xt")]
 position = Vector2(470, 204)
 enemy_definition = ExtResource("4_iygna")
 spawn_modes = Array[int]([2])
 
-[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=301264785]
-position = Vector2(296, 259)
-
-[node name="RedAlertSpawner" parent="." unique_id=634236226 instance=ExtResource("3_xk4xt")]
-position = Vector2(195, 140)
-enemy_definition = ExtResource("5_l80tk")
-spawn_modes = Array[int]([3])
+[node name="floor" parent="." unique_id=1857634718 instance=ExtResource("2_u5ev4")]
+position = Vector2(-1, 347)

@@ -1,7 +1,11 @@
 class_name Player
 extends CharacterBody2D
 
-
+# --- movement ---
+# gravity/floatyness
+var gravity : float = 1000.0
+# movement speed
+var move_speed:int = 400
 
 # What is the player currently doing, used for momentum handling.
 # 0 = standing still
@@ -33,32 +37,45 @@ var is_aiming: bool
 # determines if left clicking will fire a shot
 var is_reloading: bool
 
+var is_falling : bool = false
+
 # current player health
 # tracked between fights (ie: not healed between boss fights)? changes over loop?
 # how represented in the HUD? Or maybe something floating around the player, when 
 # they're injured and then fades away (unless low)?
 var health: int
 
-@export var speed:int = 400
-
-
-func _ready():
-	pass
-	
-func _process(delta: float):
+func _physics_process(delta: float) -> void:
 	# --- movement ---
 	#rnelson 9-25-2026 todo: check for user input control (handle momentum, pairing this with movement_status)
-	# also: research how people handle momentum movement
-	velocity = Vector2.ZERO
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("crouch"):
-		velocity.y += 1
-	if Input.is_action_pressed("jump"):
-		velocity.y -= 1
-	#etc. movement logic
+	# also: research how people handle momentum movement (move_and_slide is sufficient??)
+	#handle jumping, handle crouching
+	var inputAxis = 0.0
+	inputAxis = Input.get_axis("move_left", "move_right")
+	velocity.x = inputAxis * move_speed
+	
+	is_falling = velocity.y > 0 and not is_on_floor()
+	
+	if Input.is_action_just_pressed("jump") and not is_falling:
+		velocity.y -= 500
+	
+	# --- gravity ---
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
+	move_and_slide()
+
+func _ready():
+	# in case this gets un-set, layer 2 is player (default layer is 1, world)
+	# remember: it's a bitmask
+	collision_layer = 2 # layer 2
+	collision_mask = 13 # 1 and 3
+	
+func _process(delta: float):
+	# have a raycaster to know the player is facing/near something, for interactables?
+	#that would look at an interactables layer (only collision mask, not on a layer
+	
+	# check if way out of bounds?
 	
 	# --- gun/ammo ---
 	# handle if ammo counter is 0
